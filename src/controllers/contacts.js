@@ -8,7 +8,29 @@ import {
 } from '../services/contacts.js';
 
 export async function getContacts(req, res) {
-  const contacts = await getAllContacts();
+  const pageRaw = parseInt(req.query.page, 10);
+  const perPageRaw = parseInt(req.query.perPage, 10);
+  const page = isNaN(pageRaw) || pageRaw < 1 ? 1 : pageRaw;
+  const perPage = isNaN(perPageRaw) || perPageRaw < 1 ? 10 : perPageRaw;
+  const sortBy = req.query.sortBy || 'name';
+  const sortOrder = req.query.sortOrder || 'asc';
+  const type = req.query.type;
+  const isFavourite =
+    req.query.isFavourite === 'true'
+      ? true
+      : req.query.isFavourite === 'false'
+      ? false
+      : undefined;
+
+  const contacts = await getAllContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    type,
+    isFavourite,
+  });
+
   res.status(200).json({
     status: 200,
     message: 'Successfully found contacts!',

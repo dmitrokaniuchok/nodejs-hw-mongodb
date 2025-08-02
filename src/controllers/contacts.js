@@ -59,7 +59,28 @@ export async function getContactByIdController(req, res) {
 }
 
 export async function createNewContactController(req, res) {
-  const contactData = { ...req.body, userId: req.user._id };
+  const { name, phoneNumber, email, isFavourite, contactType } = req.body;
+  const userId = req.user._id;
+
+  if (!name || !phoneNumber || !contactType) {
+    return res.status(400).json({
+      status: 400,
+      message: 'Missing required fields: name, phoneNumber, contactType',
+    });
+  }
+
+  const { path: photoUrl } = req.file || {};
+
+  const contactData = {
+    name,
+    phoneNumber,
+    email,
+    isFavourite,
+    contactType,
+    photo: photoUrl || null,
+    userId,
+  };
+
   const contact = await createContact(contactData);
 
   res.status(201).json({

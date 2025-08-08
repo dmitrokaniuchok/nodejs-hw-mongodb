@@ -1,0 +1,19 @@
+description: Not found
+type: object
+required:
+  - status
+  - message
+  - data
+properties:
+  status:
+    type: integer
+    example: 404
+  message:
+    type: string
+    example: Something went wrong
+  data:
+    oneOf:
+      - type: string
+      - type: 'null'
+    description: Additional error details or null
+    example: Route not found

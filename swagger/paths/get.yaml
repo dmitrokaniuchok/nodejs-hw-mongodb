@@ -1,0 +1,63 @@
+responses:
+  '200':
+    description: All contacts found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: All contacts found
+            data:
+              type: object
+              required:
+                - items
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                items:
+                  type: array
+                  items:
+                    $ref: '../components/ContactSchema.yaml'
+                page:
+                  type: integer
+                  example: 1
+                perPage:
+                  type: integer
+                  example: 10
+                totalItems:
+                  type: integer
+                  example: 20
+                totalPages:
+                  type: integer
+                  example: 5
+                hasNextPage:
+                  type: boolean
+                  example: false
+                hasPreviousPage:
+                  type: boolean
+                  example: true
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '../components/Error401.yaml'
+  '404':
+    description: Not Found
+    content:
+      application/json:
+        schema:
+          $ref: '../components/Error404.yaml'

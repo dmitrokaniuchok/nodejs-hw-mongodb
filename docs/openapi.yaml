@@ -13,7 +13,7 @@ tags:
 
 servers:
   - url: http://localhost:3000
-  - url: https://мій-задеплоєний-сайт.com
+  - url: https://nodejs-hw-mongodb-swagger-e07g.onrender.com
 
 paths:
   /contacts:
